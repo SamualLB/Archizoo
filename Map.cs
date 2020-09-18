@@ -10,23 +10,17 @@ namespace Archizoo
     {
         public static readonly FontSizes[] ZoomValues = {FontSizes.Quarter, FontSizes.Half, FontSizes.One, FontSizes.Two, FontSizes.Three, FontSizes.Four};
 
-        public readonly TileBase[] Tiles;
+        public readonly GridTile[] Tiles;
         private int _currentZoom = 2;
         
         public Map(int width, int height): base(width, height)
         {
-            Tiles = new TileBase[width * height];
+            Tiles = new GridTile[width * height];
+            for (var i = 0; i < Cells.Length; i++)
+                Tiles[i] = new GridTile(this, GetPointFromIndex(i));
         }
 
-        public TileBase this[Point point]
-        {
-            get => Tiles[Helpers.GetIndexFromPoint(point.X, point.Y, Width)];
-            set
-            {
-                Tiles[Helpers.GetIndexFromPoint(point.X, point.Y, Width)] = value;
-                value.Cell = Cells[Helpers.GetIndexFromPoint(point.X, point.Y, Width)];
-            }
-        }
+        public GridTile this[Point point] => Tiles[Helpers.GetIndexFromPoint(point.X, point.Y, Width)];
 
         /// <summary>
         /// Zoom out 1 step, returns immediately if cannot zoom in more
@@ -36,7 +30,7 @@ namespace Archizoo
             if (_currentZoom >= ZoomValues.Length - 1)
                 return;
             _currentZoom++;
-            SetFont();
+            UpdateFont();
         }
 
         /// <summary>
@@ -47,7 +41,7 @@ namespace Archizoo
             if (_currentZoom <= 0)
                 return;
             _currentZoom--;
-            SetFont();
+            UpdateFont();
         }
 
         /// <summary>
@@ -56,13 +50,13 @@ namespace Archizoo
         public void ResetZoom()
         {
             _currentZoom = 2;
-            SetFont();
+            UpdateFont();
         }
 
         /// <summary>
         /// Update the font depending on the current value of _currentZoom
         /// </summary>
-        public void SetFont()
+        public void UpdateFont()
         {
             Font = Font.Master.GetFont(ZoomValues[_currentZoom]);
             
@@ -83,9 +77,8 @@ namespace Archizoo
         public static Map Generate(int w, int h)
         {
             var map = new Map(w, h);
-            var r = new Random();
             for (var i = 0; i < map.Cells.Length; i++)
-                map[Helpers.GetPointFromIndex(i, map.Width)] = new TileGrass(map.Cells[i]);
+                map[Helpers.GetPointFromIndex(i, map.Width)].Tile = new TileGrass();
             return map;
         }
     }

@@ -1,6 +1,0 @@
-﻿readonly Array of Tile
-
-Tile has a readonly Cell
-
-Change the decorator / or someting
-Call decorator to set the cell

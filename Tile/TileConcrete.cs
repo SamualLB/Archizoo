@@ -7,10 +7,15 @@ namespace Archizoo.Tile
     {
 
         private static readonly Cell DefaultCell = new Cell(Color.White, Color.Gray);
-        public TileConcrete(Cell cell): base(cell)
+        public TileConcrete()
         {
             IsBlocking = true;
-            Cell.CopyAppearanceFrom(DefaultCell);
+        }
+
+
+        public override Cell GenerateCell()
+        {
+            return DefaultCell;
         }
     }
 }

@@ -6,12 +6,6 @@ namespace Archizoo.Tile
     {
         public bool IsBlocking;
 
-        public Cell Cell;
-
-        
-        public TileBase(Cell cell)
-        {
-            Cell = cell;
-        }
+        public abstract Cell GenerateCell();
     }
 }

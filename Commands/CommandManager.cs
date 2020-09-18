@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using Archizoo.Entities;
 using Microsoft.Xna.Framework;
-using SadConsole;
 using Archizoo.Tile;
 
 namespace Archizoo.Commands
@@ -49,12 +48,12 @@ namespace Archizoo.Commands
         
         public bool PlaceWall(Point start, Point end)
         {
-            return InnerExecute(new PlaceTileCommand<TileWall>(this, start, end));
+            return InnerExecute(new PlaceTileCommand(this, start, end, new TileWall()));
         }
 
         public bool PlaceConcrete(Point start, Point end)
         {
-            return InnerExecute(new PlaceTileCommand<TileConcrete>(this, start, end));
+            return InnerExecute(new PlaceTileCommand(this, start, end, new TileConcrete()));
         }
     }
 }

@@ -10,10 +10,9 @@ namespace Archizoo.Tile
 
         private static readonly Cell DefaultNormalCell = new Cell(Color.White, Color.ForestGreen);
         private static readonly Cell DefaultDarkCell = new Cell(Color.White, Color.Green);
-
-        public TileGrass(Cell cell) : base(cell)
+        public override Cell GenerateCell()
         {
-            Cell.CopyAppearanceFrom(Random.NextDouble() < 0.5 ? DefaultDarkCell : DefaultNormalCell);
+            return Random.NextDouble() < 0.5 ? DefaultNormalCell : DefaultDarkCell;
         }
     }
 }
