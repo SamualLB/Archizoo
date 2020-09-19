@@ -54,9 +54,9 @@ namespace Archizoo.Commands
 
             for (var i = 0; i < _tiles.Length; i++)
             {
-                _tiles[i].Tile = _oldTiles[i];
                 if (_oldTiles[i].GetType() != _tiles[i].Tile.GetType())
                     changed = true;
+                _tiles[i].Tile = _oldTiles[i];
             }
 
             if (changed) Manager.Map.IsDirty = true;
